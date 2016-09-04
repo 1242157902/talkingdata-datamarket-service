@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.talkingdata.dmpplus.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.talkingdata.dmpplus.dao.entity.UserInfo">
+    <constructor>
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="account" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="register_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="login_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="picture_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="company" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="qq" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="access_token" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account, password, status, register_time, login_time, picture_url, company, name,
+    phone, qq,
+    access_token
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserNamePassword" resultMap="BaseResultMap" parameterType="com.talkingdata.dmpplus.dao.entity.UserInfo">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    where account = #{account,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+  <select id="selectIdByUserName" resultType="java.lang.String" parameterType="java.lang.String">
+    select id
+    from
+    user_info
+    where
+    account = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTokenByUserName" resultType="java.lang.String" parameterType="java.lang.String">
+    select access_token
+    from
+    user_info
+    where account = #{username,jdbcType=VARCHAR}
+  </select>
+  <update id="updateToken" parameterType="com.talkingdata.dmpplus.dao.entity.UserInfo">
+    update user_info
+    <set>
+      access_token = #{accessToken,jdbcType=VARCHAR}
+    </set>
+    where account = #{account,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.talkingdata.dmpplus.dao.AppAccessInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.talkingdata.dmpplus.dao.entity.AppAccessInfo" >
+    <constructor >
+      <idArg column="app_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="auth_type" jdbcType="TINYINT" javaType="java.lang.Integer" />
+      <arg column="redirect_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    app_id, auth_type, redirect_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_access_info
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.talkingdata.dmpplus.dao.AppInfoMapper">
+  <resultMap id="BaseResultMap" type="com.talkingdata.dmpplus.dao.entity.AppInfo">
+    <constructor>
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name_en" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="version" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rating" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="supplier" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="icon_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="logo_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tag" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pricing" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="trial" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="access_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="deploy" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.talkingdata.dmpplus.dao.entity.AppInfo">
+    <constructor>
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name_en" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="version" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rating" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="supplier" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="icon_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="logo_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tag" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="pricing" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="trial" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="access_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="deploy" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="description" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, name_en, version, rating, supplier, icon_url, logo_url, tag, pricing, trial, 
+    access_date, deploy
+  </sql>
+  <sql id="Blob_Column_List">
+    description
+  </sql>
+  <insert id="insert" parameterType="com.talkingdata.dmpplus.dao.entity.AppInfo" >
+    insert into app_info (id, name, name_en, 
+      version, rating, supplier, 
+      icon_url, logo_url, tag, 
+      pricing, trial, access_date, 
+      deploy, description)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR}, 
+      #{version,jdbcType=VARCHAR}, #{rating,jdbcType=INTEGER}, #{supplier,jdbcType=VARCHAR}, 
+      #{iconUrl,jdbcType=VARCHAR}, #{logoUrl,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{pricing,jdbcType=VARCHAR}, #{trial,jdbcType=VARCHAR}, #{accessDate,jdbcType=DATE}, 
+      #{deploy,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <select id="selectBySupplier" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_info
+    where supplier = #{supplier,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="listAll" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_info order by  rating DESC ,access_date ASC
+  </select>
+  <select id="getAppCountByTag" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from app_info where tag = #{tag,jdbcType=VARCHAR}
+  </select>
+  <select id="getAppCount" resultType="java.lang.Integer">
+    select count(*) from app_info
+  </select>
+</mapper>

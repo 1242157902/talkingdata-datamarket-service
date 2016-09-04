@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <mappers>
+    <mapper resource="mybatis/AppInfoMapper.xml" />
+    <mapper resource="mybatis/AppIntroductionMapper.xml" />
+    <mapper resource="mybatis/AppMediaInfoMapper.xml" />
+    <mapper resource="mybatis/UserAppMappingMapper.xml" />
+    <mapper resource="mybatis/UserInfoMapper.xml" />
+    <mapper resource="mybatis/AppBussinessMappingMapper.xml" />
+    <mapper resource="mybatis/BusinessInfoMapper.xml" />
+    <mapper resource="mybatis/AppAccessInfoMapper.xml" />
+  </mappers>
+</configuration>
